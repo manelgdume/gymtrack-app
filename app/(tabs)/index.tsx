@@ -2,26 +2,52 @@ import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../../components/EditScreenInfo';
 import { Text, View } from '../../components/Themed';
+import { Pressable, useColorScheme, Image } from 'react-native';
+ 
 
 export default function TabOneScreen() {
+  const isDarkMode = useColorScheme() === 'dark';
+  
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+    <View style={isDarkMode? styles.dark : styles.light} >
+      <View style={isDarkMode? styles.cardDark : styles.cardLight}>
+        <Text style={styles.title}>Todays Workout</Text>
+        
+      </View>
+      <View style={isDarkMode? styles.cardDark : styles.cardLight}>
+        <Text style={styles.title}>This week</Text>
+      </View>
+      <View style={isDarkMode? styles.cardDark : styles.cardLight}>
+        <Text style={styles.title}>Progress</Text>
+      </View>
     </View>
   );
 }
-
+ 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  dark: {
+    backgroundColor: '#000',
+    color:'#fff'
+  },
+  light: {
+    backgroundColor: '#eee',
+    color:'#000'
+  },
+  cardLight: {
+    backgroundColor: '#fff',
+    padding:10,
+    margin: 20,
+    borderRadius:10
+  },
+  cardDark: {
+    backgroundColor: '#222',
+    padding:10,
+    margin: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
+    justifyContent: 'flex-start',
   },
   separator: {
     marginVertical: 30,
