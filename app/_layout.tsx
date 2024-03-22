@@ -1,33 +1,38 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
+import { FontAwesome5 } from '@expo/vector-icons'; // Update the import statement if needed
+import {
+  DarkTheme,
+  DefaultTheme,
+  NavigationContainer,
+  ThemeProvider,
+} from '@react-navigation/native';
 import { useFonts } from 'expo-font';
-import { SplashScreen, Stack } from 'expo-router';
-import { useEffect } from 'react';
+import { SplashScreen, Stack, useRouter } from 'expo-router';
+import { useEffect, useState } from 'react'; // Added useState
 import { useColorScheme } from 'react-native';
-
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
+import * as SecureStore from 'expo-secure-store';
+export { ErrorBoundary } from 'expo-router';
+import * as NavigationBar from 'expo-navigation-bar';
 
 export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
+  initialRouteName: '(auth)',
 };
 
-// Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default  function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
+export default function RootLayout() {
 
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
+  const [loaded, error] = useFonts({
+    'mon': require('../assets/fonts/Montserrat-Regular.ttf'),
+    'mon-sb': require('../assets/fonts/Montserrat-SemiBold.ttf'),
+    'mon-b': require('../assets/fonts/Montserrat-Bold.ttf'),
+  });
+  const router = useRouter();
+  const [session, setSession] = useState<string | null>(null); // Use state to manage session
+
   useEffect(() => {
-    if (error) throw error;
+    if (error) {
+      console.error('Error loading fonts:', error);
+    }
   }, [error]);
 
   useEffect(() => {
@@ -35,24 +40,43 @@ export default  function RootLayout() {
       SplashScreen.hideAsync();
     }
   }, [loaded]);
+  useEffect(() => {
+     
+    if(loaded){
+      const checkUserSession = async () => {
+         await SecureStore.deleteItemAsync('sessionJWT');
+        try {
+          const userSession = await SecureStore.getItemAsync('sessionJWT');
+          if (userSession != null) {
+            router.replace('/(tabs)/one');
+          }
+        } catch (e) {
+          console.error('Error al obtener la sesión del usuario', e);
+        }
+      }
+      checkUserSession();
+    }
 
+  }, [loaded]);
   if (!loaded) {
     return null;
   }
-  
-  return <RootLayoutNav />;
+
+  return <RootLayoutNav session={session} /> ;
 }
 
-function RootLayoutNav() {
+function RootLayoutNav({ session }: { session: string | null }) {
   const colorScheme = useColorScheme();
-
+ 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="index" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{ presentation: 'modal', headerShown: false }} />
+        <Stack.Screen name="modal" options={{ headerShown: false }} />
+        <Stack.Screen name="(auth)/login" options={{ presentation: 'modal', headerTitle: 'Login' }} />
+        <Stack.Screen name="(auth)/register" options={{ presentation: 'modal', headerTitle: 'Register' }} />
       </Stack>
     </ThemeProvider>
   );
 }
- 

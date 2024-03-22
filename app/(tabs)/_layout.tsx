@@ -1,59 +1,43 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+
 import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme, Image } from 'react-native';
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 import { Text, View } from '../../components/Themed';
-import { StatusBar } from 'expo-status-bar';
-import Colors from '../../constants/Colors';
 import * as SystemUI from 'expo-system-ui';
-import { NavigationContainer } from '@react-navigation/native';
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
+import * as NavigationBar from 'expo-navigation-bar';
+
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof Feather>['name'];
   color: string;
  }) {
   return <Feather size={26} style={{ marginTop: 8}} {...props} />;
 }
-function UserIcon(props: {
-  name: React.ComponentProps<typeof MaterialCommunityIcons>['name'];
-  color: string;
-}) {
-  return <MaterialCommunityIcons size={36}  {...props} />;
-}
-
 
 function CustomHeader() {
   return (
-    <Text style={{ fontWeight: 'bold', color: "#007aff" , fontSize:20}}>GYMTRACK</Text>
+    <Text style={{fontFamily:'mon-b', color: "#007aff" , fontSize:20}}>GYMTRACK</Text>
   );
 }
-SystemUI.setBackgroundColorAsync("white");
+NavigationBar.setBackgroundColorAsync("#020D70");
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  return (
+  return (  
     <Tabs
-      sceneContainerStyle={{backgroundColor: colorScheme === 'dark' ? '#000' : '#eee'}}
+      sceneContainerStyle={{backgroundColor: '#020D70'}}
       screenOptions={{
  
-       
-        headerTitleAlign:"center",
-        headerStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', 
-        },
-        headerTitle: () => <CustomHeader />,
-        headerLeft: () =><UserIcon name="account-circle" color="#007aff" />,
-        headerLeftContainerStyle:({ paddingLeft:20 , marginRight:-20}),
+        headerShown: false,
         
         tabBarStyle: {
-          backgroundColor: colorScheme === 'dark' ? '#000' : '#fff', 
+          backgroundColor: '#020D70', 
+          
         },
-        tabBarInactiveTintColor: colorScheme === 'dark' ? '#eee' : '#000', 
+        tabBarInactiveTintColor: '#797EAA', 
+        tabBarActiveTintColor: '#FFFFFF'
       }}>
       <Tabs.Screen
-        name="index"
+        name="one"
         options={{
           title: "",
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
@@ -63,21 +47,21 @@ export default function TabLayout() {
         name="two"
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <TabBarIcon name="activity" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="book-open" color={color} />,
         }}
       />
       <Tabs.Screen
         name="three"
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <TabBarIcon name="book-open" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="message-square" color={color} />,
         }}
       />
       <Tabs.Screen
         name="four"
         options={{
           title: "",
-          tabBarIcon: ({ color }) => <TabBarIcon name="settings" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon name="menu" color={color} />,
         }}
       />
     </Tabs>
