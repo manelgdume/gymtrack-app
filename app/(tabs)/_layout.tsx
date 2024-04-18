@@ -9,31 +9,31 @@ import * as NavigationBar from 'expo-navigation-bar';
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof Feather>['name'];
   color: string;
- }) {
-  return <Feather size={26} style={{ marginTop: 8}} {...props} />;
+}) {
+  return <Feather size={26} style={{ marginTop: 8 }} {...props} />;
 }
 
 function CustomHeader() {
   return (
-    <Text style={{fontFamily:'mon-b', color: "#007aff" , fontSize:20}}>GYMTRACK</Text>
+    <Text style={{ fontFamily: 'mon-b', color: "#007aff", fontSize: 20 }}>GYMTRACK</Text>
   );
 }
 NavigationBar.setBackgroundColorAsync("#020D70");
 export default function TabLayout() {
   const colorScheme = useColorScheme();
 
-  return (  
+  return (
     <Tabs
-      sceneContainerStyle={{backgroundColor: '#020D70'}}
+      sceneContainerStyle={{ backgroundColor: '#020D70' }}
       screenOptions={{
  
         headerShown: false,
-        
+
         tabBarStyle: {
-          backgroundColor: '#020D70', 
-          
+          backgroundColor: '#020D70',
+
         },
-        tabBarInactiveTintColor: '#797EAA', 
+        tabBarInactiveTintColor: '#797EAA',
         tabBarActiveTintColor: '#FFFFFF'
       }}>
       <Tabs.Screen
@@ -62,6 +62,19 @@ export default function TabLayout() {
         options={{
           title: "",
           tabBarIcon: ({ color }) => <TabBarIcon name="menu" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="train/[workout]"
+        
+        options={{
+          headerShown: true,
+          headerStyle: {
+            backgroundColor: '#020D70',
+          },
+           title: "",
+          tabBarIcon: ({ color }) => <TabBarIcon name="menu" color={color} />,
+          href: null,
         }}
       />
     </Tabs>

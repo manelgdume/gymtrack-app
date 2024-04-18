@@ -14,11 +14,7 @@ export default function TabTwoScreen() {
     <View style={styles.container}>
       <View>
         <Text style={{ color: "#535673", fontSize: 18, marginTop: 60, marginLeft: 20 }}></Text>
-        <View style={styles.cardWorkout}>
-          <Text style={{ fontSize: 20, color: "white", fontFamily: 'mon-b', }}>ACCOUNT</Text>
-          <Text style={{ fontSize: 14, color: 'white', fontFamily: 'mon-sb', marginTop: 10 }}>Name</Text>
-          <Text style={{ fontSize: 14, color: 'white', fontFamily: 'mon-sb', marginTop: 10 }}>Weight</Text>
-        </View>
+ 
         <View style={styles.cardWorkout}>
           <Text style={{ fontSize: 20, color: "white", fontFamily: 'mon-b', }}>SPLIT</Text>
           <View style={{ backgroundColor: '#020D70' }}>
@@ -46,9 +42,9 @@ export default function TabTwoScreen() {
               }}
               onValueChange={(value) => console.log(value)}
               items={[
-                { label: 'Push Pull Legs (6 days)', value: 'ppl' },
-                { label: 'Torso Legs (4 days)', value: 'tl' },
-                { label: 'Full Body (3 days)', value: 'fb' },
+                { label: 'Push Pull Legs (6 days)', value: 'Push Pull Legs' },
+                { label: 'Torso Legs (4 days)', value: 'Upper-Lower' },
+                { label: 'Full Body (3 days)', value: 'Full Body' },
               ]}
             />
           </View>
