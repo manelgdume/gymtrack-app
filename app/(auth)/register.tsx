@@ -18,7 +18,7 @@ const Register = () => {
 
 
   const handleLogin = () => {
-    axios.post(`http://192.168.0.16:3000/user`, signUpDto)
+    axios.post(`http://192.168.0.15:3000/user`, signUpDto)
       .then((response) => {
         console.log('Respuesta exitosa:', response.data);
       })

@@ -20,6 +20,7 @@ export default function TabOneScreen() {
   const [exercises, setExercises] = useState(String)
   const [day, setDay] = useState(String)
   const currentDate = new Date();
+  const [isLoaded, setIsLoaded] = useState(false); // Nuevo estado para indicar si los datos se han cargado
   const router = useRouter();
   const params = useLocalSearchParams();
   const [workout, setWorkout] = useState()
@@ -39,16 +40,15 @@ export default function TabOneScreen() {
           },
         };
 
-        await axios.get(`http://192.168.0.16:3000/user`, axiosConfig).then(async res => {
+        await axios.get(`http://192.168.0.15:3000/user`, axiosConfig).then(async res => {
           const userdata = res.data;
           setUsername(userdata.username);
           const currentDate = new Date();
-          const splitDataResponse = await axios.get(`http://192.168.0.16:3000/split/${res.data.workout}`, axiosConfig);
+          const splitDataResponse = await axios.get(`http://192.168.0.15:3000/split/${res.data.workout}/`, axiosConfig);
 
           let dayAux = currentDate.getDay()
- 
 
-          if (splitDataResponse.data.days[dayAux] == 'Rest') {
+          if (splitDataResponse.data.days[dayAux-1] == 'Rest') {
             let rest: any = "REST"
             setToEnabled(false)
             setDay(rest);
@@ -56,7 +56,9 @@ export default function TabOneScreen() {
           }
           else {
             setToEnabled(true)
-            let d = splitDataResponse.data.days[dayAux]
+            console.log(splitDataResponse.data.days)           
+            let d = splitDataResponse.data.days[dayAux-1]
+            console.log(d)
             setDay(d);
             let w = getExercisesByName(d , splitDataResponse.data.workouts).length
             let aux = getExercisesByName(d , splitDataResponse.data.workouts)
@@ -64,6 +66,9 @@ export default function TabOneScreen() {
             setWorkout(aux)
             setExercises(w + " exercises")
           }
+
+          // Una vez que los datos se han cargado, establecer isLoaded en true
+          setIsLoaded(true);
         });
 
       } catch (error) {
@@ -71,7 +76,7 @@ export default function TabOneScreen() {
       }
     };
     getUserData();
-  }, [isLoaded]);
+  }, []); 
 
 
   const color = 'rgba(83, 86, 115, 1)';
@@ -99,7 +104,9 @@ export default function TabOneScreen() {
     { value: 88 },
 
   ];
-
+  if (!isLoaded) {
+    return <View style={{height: 1000 , backgroundColor: 'white'}}></View>;
+  }
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const formattedDate = months[currentDate.getMonth()] + ' ' + ('0' + currentDate.getDate()).slice(-2) + ', ' + currentDate.getFullYear();
 

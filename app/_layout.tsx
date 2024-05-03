@@ -70,7 +70,7 @@ function RootLayoutNav({ session }: { session: string | null }) {
  
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
+      <Stack >
         <Stack.Screen name="index" options={{ presentation: 'modal', headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ presentation: 'modal', headerShown: false }} />
         <Stack.Screen name="modal" options={{ headerShown: false }} />

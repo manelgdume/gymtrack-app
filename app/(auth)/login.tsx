@@ -18,7 +18,7 @@ const Login = () => {
   const router = useRouter();
 
   const handleLogin = () => {
-    axios.post(`http://192.168.0.16:3000/auth/login`, signInDto)
+    axios.post(`http://192.168.0.15:3000/auth/login`, signInDto)
       .then(async (response) => {
         console.log(response.data + "1")
         await SecureStore.setItemAsync("sessionJWT", response.data);

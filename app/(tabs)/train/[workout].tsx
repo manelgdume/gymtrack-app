@@ -56,7 +56,7 @@ export default function TabTwoScreen() {
         Authorization: `Bearer ${userSession}`,
       }
 
-      axios.post(`http://192.168.0.16:3000/entrie`, entrie, { headers })
+      axios.post(`http://192.168.0.15:3000/entrie`, entrie, { headers })
         .then((response) => {
           console.log('Respuesta exitosa:', response.data);
         })
@@ -115,6 +115,8 @@ export default function TabTwoScreen() {
           <View style={styles.inputCard}>
             <Text style={{ color: "white", fontSize: 10, fontFamily: 'mon-b', textAlign: 'center' }}>WEIGTH (KG)</Text>
             <NumericInput
+              inputStyle = {{fontFamily: 'mon', fontSize: 20}}
+              iconStyle={{color: 'white'}}
               initValue={weigth}
               value={weigth}
               minValue={0}
@@ -131,6 +133,8 @@ export default function TabTwoScreen() {
           <View style={styles.inputCard}>
             <Text style={{ color: "white", fontSize: 10, fontFamily: 'mon-b', textAlign: 'center' }}>REPS</Text>
             <NumericInput
+              inputStyle = {{fontFamily: 'mon', fontSize: 20}}
+              iconStyle={{color: 'white'}}
               initValue={reps}
               value={reps}
               minValue={0}
