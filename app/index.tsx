@@ -5,8 +5,7 @@ import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity } from 'rea
 import * as SecureStore from 'expo-secure-store';
 import axios from 'axios';
 
-const Login = () => {
-
+export default function Login () {
     const router = useRouter();
 
     const goToLogin = () => {
@@ -61,5 +60,4 @@ const styles = StyleSheet.create({
         fontFamily: 'mon-sb',
     },
 });
-
-export default Login;
+ 

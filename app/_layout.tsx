@@ -44,7 +44,6 @@ export default function RootLayout() {
      
     if(loaded){
       const checkUserSession = async () => {
-         await SecureStore.deleteItemAsync('sessionJWT');
         try {
           const userSession = await SecureStore.getItemAsync('sessionJWT');
           if (userSession != null) {

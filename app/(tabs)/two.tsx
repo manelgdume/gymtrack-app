@@ -170,7 +170,7 @@ export default function TabTwoScreen() {
 
       {dataLoaded && ( // Mostrar ScrollView solo cuando los datos se hayan cargado
         <View>
-          <ScrollView style={{ maxHeight: 650 ,marginTop: 10}}>
+          <ScrollView style={{ maxHeight: 650 ,marginTop: 20}}>
             {entrie &&
               entrie.map((e, i) => (
                 <View style={{ marginTop: 5}}>

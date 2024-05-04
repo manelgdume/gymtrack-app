@@ -28,8 +28,8 @@ export default function TabOneScreen() {
   const handlePress = () => {
     if (day != null)
       router.push({ pathname: `/(tabs)/train/${workout}` });
-
   };
+
   useEffect(() => {
     const getUserData = async () => {
       try {
@@ -66,9 +66,8 @@ export default function TabOneScreen() {
             setWorkout(aux)
             setExercises(w + " exercises")
           }
-
-          // Una vez que los datos se han cargado, establecer isLoaded en true
-          setIsLoaded(true);
+ 
+           setIsLoaded(true);
         });
 
       } catch (error) {
